@@ -12,13 +12,10 @@ public:
             capacity_at_dist[trips[i][1] + 1] += trips[i][0] ;
             capacity_at_dist[trips[i][2] + 1] -= trips[i][0] ; 
         }
-        vector<int> pref(1010 , 0) ;
         for(int i = 1 ; i <= 1000 ; i++){
-             pref[i] = capacity_at_dist[i] + pref[i - 1] ;
-            if(pref[i] > capacity)  return false ; 
-            cout << pref[i] << " " ;
+             capacity_at_dist[i] += capacity_at_dist[i - 1] ;
+            if(capacity_at_dist[i] > capacity)  return false ; 
         }
-        cout << endl ; 
         return true ; 
     }
 };
