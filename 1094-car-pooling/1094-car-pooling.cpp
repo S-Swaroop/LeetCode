@@ -1,10 +1,9 @@
 class Solution {
 public:
     /*
-    -----
-       -----
-        --
-             ---------
+    capacity: 4
+    -+2-+3-(-2)-(-3)-------------------------
+    0                                       1000
     we need to check if at any distance the number of passengers required to be picked up 
     is greater than capacity or not
     a simple partial sum trick will do 
@@ -14,14 +13,14 @@ public:
     -x passengers after and at point[r]
     */
     bool carPooling(vector<vector<int>>& trips, int capacity) {
-        vector<int> capacity_at_dist(10005 , 0) ;
+        vector<int> capacity_at_dist(1005 , 0) ;
         int n = trips.size() ;
         for (int i = 0 ; i < n ; i++){
             capacity_at_dist[trips[i][1]] += trips[i][0] ;
             capacity_at_dist[trips[i][2]] -= trips[i][0] ;
         }
         int capacity_at_any_dist = 0 ;
-        for (int i = 0 ; i<= 10000 ; i++){
+        for (int i = 0 ; i <= 1000 ; i++){
             capacity_at_any_dist += capacity_at_dist[i] ;
             if (capacity_at_any_dist > capacity)    return false;
         }
