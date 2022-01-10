@@ -21,6 +21,7 @@ public:
                     dfs(x + dx[i] , y + dy[i] , vis) ;
                 }
             }
+            if(atlantic[x][y] && pacific[x][y]) ans.push_back(vector<int>{x , y}) ;
         };
         
         for(int i = 0 ; i < n ; i++){
@@ -31,11 +32,11 @@ public:
             if(!atlantic[n - 1][i]) dfs(n - 1 , i , atlantic) ;
             if(!pacific[0][i])  dfs(0 , i , pacific) ;
         }
-        for(int i = 0 ; i < n ; i++){
-            for(int j = 0 ; j < m ; j++){
-                if(atlantic[i][j] && pacific[i][j]) ans.push_back(vector<int>{i , j}) ;
-            }
-        }
+        // for(int i = 0 ; i < n ; i++){
+        //     for(int j = 0 ; j < m ; j++){
+        //         if(atlantic[i][j] && pacific[i][j]) ans.push_back(vector<int>{i , j}) ;
+        //     }
+        // }
         
         return ans ; 
     }
