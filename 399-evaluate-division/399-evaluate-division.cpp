@@ -1,5 +1,15 @@
 class Solution {
 public:
+    /*
+        consider equations vector as [numerator , denominator]
+        create a weighted graph as numerator->denominator(weight = value) , denomenator->numerator(weight = 1.0 / value)
+        process queries
+        if(numerator and denomenator exist in graph)
+            if(numerator == denomenator)    simply append 1.0 into answer
+            else    run dfs(numerator -> denomenator)
+        else
+            append -1.0 into answer
+    */
     vector<double> calcEquation(vector<vector<string>>& equations, vector<double>& values, vector<vector<string>>& queries) {
         map<string , vector<pair<string,double>>> adj ; 
         int n = equations.size() ; 
