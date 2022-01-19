@@ -5,7 +5,7 @@ public:
         return dp(0 , 0 , ring , key) ; 
     }
 private: 
-    int memo[1001][1001] ; 
+    int memo[101][101] ;
     int dp(int curr_ring , int curr_key , string &ring , string &key){
         int n = ring.length() ; 
         int m = key.length() ; 
@@ -15,7 +15,9 @@ private:
         res = INT_MAX ; 
         for(int i = 0 ; i < n ; i++){
             if(ring[i] == key[curr_key]){
-                int steps = min({abs(curr_ring - i) , abs(n + i - curr_ring) , abs(n - i + curr_ring)}) ; 
+                int steps = abs(curr_ring - i) ;
+                steps = min(steps , abs(n - curr_ring + i)) ;
+                steps = min(steps , abs(n - i + curr_ring)) ;
                 res = min(res , steps + 1 + dp(i , curr_key + 1 , ring , key)) ;
             }
         }
