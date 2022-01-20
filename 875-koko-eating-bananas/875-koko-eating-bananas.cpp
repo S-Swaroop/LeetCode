@@ -1,26 +1,25 @@
 class Solution {
 public:
     int minEatingSpeed(vector<int>& piles, int h) {
-        auto possible = [&](int k)->bool{
-            int time = 0 ; 
+        //utility function to check if the we can eat all the bananas at rate k in h hours
+        auto possible = [&](int k)->bool{ 
+            int time_taken = 0 ; 
             for(int &i : piles){
-                time += (i + k - 1) / k ; 
+                time_taken += (i + k - 1) / k ; 
             }
-            if(time <= h)   return true ; 
-            return false ;
+            return (time_taken <= h) ; 
         };
-        long long l = 0 , r = 1e10 ;
+        long long low = 0 , high = 1e10 ;
         int ans = 0 ; 
-        while(r - l > 1){
-            int m = l + (r - l) / 2 ; 
-            if(possible(m)){
-                r = m ;
-                ans = m ;
+        while(high - low > 1){
+            int mid = low + ((high - low) >> 1) ; 
+            if(possible(mid)){
+                high = mid ;
+                ans = mid ;
             }else{
-                l = m ;
+                low = mid ;
             }
         }
-        // if(possible(ans - 1))   ans-- ;
         return ans ; 
     }
 };
