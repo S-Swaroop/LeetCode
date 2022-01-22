@@ -25,6 +25,7 @@ private:
         if(board[x][y] != word[index]){
             return false ; 
         }
+        if(index == word.length() - 1)  return true ; 
         char temp = board[x][y] ; 
         board[x][y] = '.' ;
         bool possible = 0 ;
@@ -34,7 +35,6 @@ private:
                 if(possible)    return true ; 
             }
         }
-        possible = possible || (index == word.length() - 1) ;
         board[x][y] = temp ; 
         return possible ; 
     }
