@@ -31,8 +31,7 @@ private:
         bool possible = 0 ;
         for(int i = 0 ; i < 4 ; i++){
             if(isValid(x + dx[i] , y + dy[i] , board) && board[x + dx[i]][y + dy[i]] == word[index + 1]){
-                possible = possible || dfs(x + dx[i] , y + dy[i]  , index + 1 , board , word) ;
-                if(possible)    return true ; 
+                if(dfs(x + dx[i] , y + dy[i]  , index + 1 , board , word))  return true ; 
             }
         }
         board[x][y] = temp ; 
