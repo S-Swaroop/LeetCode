@@ -4,7 +4,7 @@ public:
         int n = board.size() , m = board[0].size() ; 
         for(int i = 0 ; i < n ; i++){
             for(int j = 0 ; j < m ; j++){
-                if(dfs(i , j , 0 , board , word)){
+                if(board[i][j] == word[0] && dfs(i , j , 0 , board , word)){
                     return true ; 
                 }
             }
@@ -29,7 +29,7 @@ private:
         board[x][y] = '.' ;
         bool possible = 0 ;
         for(int i = 0 ; i < 4 ; i++){
-            if(isValid(x + dx[i] , y + dy[i] , board)){
+            if(isValid(x + dx[i] , y + dy[i] , board) && board[x + dx[i]][y + dy[i]] == word[index + 1]){
                 possible = possible || dfs(x + dx[i] , y + dy[i]  , index + 1 , board , word) ;
             }
         }
