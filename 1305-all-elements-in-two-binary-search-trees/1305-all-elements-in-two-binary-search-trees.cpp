@@ -16,31 +16,12 @@ public:
         stack<TreeNode*> s1 , s2 ; 
         pushLeft(root1 , s1) ; 
         pushLeft(root2 , s2) ; 
-        while(!s1.empty() || !s2.empty()){
-            TreeNode* node = nullptr ; 
-            if(s1.empty()){
-                node = s2.top() ; 
-                s2.pop() ; 
-                ans.push_back(node->val) ; 
-                pushLeft(node->right , s2) ; 
-            } else if (s2.empty()) {
-                node = s1.top() ; 
-                s1.pop() ; 
-                ans.push_back(node->val) ; 
-                pushLeft(node->right , s1) ; 
-            } else {
-                if(s1.top()->val <= s2.top()->val){
-                    node = s1.top() ; 
-                    s1.pop() ;
-                    ans.push_back(node->val) ; 
-                    pushLeft(node->right , s1) ; 
-                } else {
-                    node = s2.top() ; 
-                    s2.pop() ; 
-                    ans.push_back(node->val) ; 
-                    pushLeft(node->right , s2) ; 
-                }
-            }
+        while(!s1.empty() || !s2.empty()){ 
+            stack<TreeNode*> &s = s1.empty() ? s2 : s2.empty() ? s1 : s1.top()->val < s2.top()->val ? s1 : s2 ;
+            TreeNode* node = s.top() ; 
+            ans.push_back(node->val) ;
+            s.pop() ; 
+            pushLeft(node->right , s) ; 
         }
         return ans ; 
     }
