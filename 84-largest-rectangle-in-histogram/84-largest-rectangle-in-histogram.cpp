@@ -3,6 +3,7 @@ public:
     int start , end , min ; 
     SegmentTree *left ;
     SegmentTree *right ;
+    
     SegmentTree (int start, int end) {
         this->start = start ;
         this->end = end ;
@@ -13,7 +14,7 @@ class Solution {
 public:
     int largestRectangleArea(vector<int>& heights) {
         SegmentTree* root = build(heights , 0 , heights.size() - 1) ;
-        return maxArea(heights , 0 , heights.size() - 1 , root) ;
+        return maxAreaInThisSegment(heights , 0 , heights.size() - 1 , root) ;
     }
     
     SegmentTree* build(vector<int>& heights, int start, int end) {
@@ -42,8 +43,8 @@ public:
         if(rightMin == -1)  return leftMin ; 
         return heights[leftMin] < heights[rightMin] ? leftMin : rightMin ; 
     }
-    
-    int maxArea(vector<int> &heights , int start , int end , SegmentTree *root) {
+    //calculates the maximum possible area in the histogram between indexes start and end
+    int maxAreaInThisSegment(vector<int> &heights , int start , int end , SegmentTree *root) {
         if(start > end) {
             return -1 ;
         } 
@@ -51,6 +52,6 @@ public:
             return heights[start] ;
         }
         int wholeMin = query(heights , start , end , root) ; 
-        return max({heights[wholeMin] * (end - start + 1) , maxArea(heights , start , wholeMin - 1 , root) , maxArea(heights , wholeMin + 1 , end , root)}) ;
+        return max({heights[wholeMin] * (end - start + 1) , maxAreaInThisSegment(heights , start , wholeMin - 1 , root) , maxAreaInThisSegment(heights , wholeMin + 1 , end , root)}) ;
     }
 };
