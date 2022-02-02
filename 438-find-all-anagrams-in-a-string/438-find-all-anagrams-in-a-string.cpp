@@ -6,7 +6,8 @@ public:
         if (m > n){
             return {} ; 
         }
-        vector<int> fs(26,0) , fp(26,0) , ans ; 
+        string fs(26 , '0') , fp(26 , '0') ;
+        vector<int> ans ; 
         for (int i = 0 ; i < m ; i++){
             fs[s[i] - 'a']++ ; 
             fp[p[i] - 'a']++ ; 
@@ -16,7 +17,7 @@ public:
             fs[s[i] - 'a']++ ; 
             fs[s[i - m] - 'a']-- ;
             if (fs == fp){
-                ans.push_back(i-m+1) ; 
+                ans.emplace_back(i - m + 1) ; 
             }
         }
         return ans ;
