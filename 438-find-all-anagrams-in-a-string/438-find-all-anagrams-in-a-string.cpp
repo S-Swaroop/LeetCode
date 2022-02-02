@@ -6,7 +6,7 @@ public:
         if (m > n){
             return {} ; 
         }
-        string fs(26 , '0') , fp(26 , '0') ;
+        vector<char> fs(26 , '0') , fp(26 , '0') ;
         vector<int> ans ; 
         for (int i = 0 ; i < m ; i++){
             fs[s[i] - 'a']++ ; 
