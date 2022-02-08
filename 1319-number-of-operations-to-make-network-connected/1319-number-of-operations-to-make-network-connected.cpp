@@ -8,11 +8,6 @@ public:
         for (vector<int> &i : connections) {
             merge(i[0] , i[1]) ; 
         }
-        // for (int i = 0 ; i < n ; i++) {
-        //     if (parent[i] == i) {
-        //         components++ ;
-        //     }
-        // }
         return components - 1 ;
     }
 private:
