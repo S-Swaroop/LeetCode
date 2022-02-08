@@ -4,7 +4,6 @@ public:
         if ((int)connections.size() < n - 1) {
             return -1 ;
         }
-        cout << (int)connections.size() << endl ;
         int components = 0 ;
         make_set(n) ; 
         for (vector<int> &i : connections) {
