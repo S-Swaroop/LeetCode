@@ -11,21 +11,40 @@
 class Solution {
 public:
     ListNode* mergeKLists(vector<ListNode*>& lists) {
-        priority_queue<pair<int , ListNode*>> q ;
-        for (auto &curr : lists) {
-            if (curr)   q.push({-1 * curr->val , curr}) ;
+        if (lists.empty()) {
+            return nullptr ;
         }
-        ListNode* ans = new ListNode() ;
-        ListNode* curr = ans ; 
-        while (!q.empty()) {
-            auto node = q.top() ; 
-            q.pop() ; 
-            curr->next = new ListNode(-1 * node.first) ; 
-            curr = curr->next ; 
-            if (node.second->next) {
-                q.push({-1 * node.second->next->val , node.second->next}) ;
+        for (int step = 1 ; step <= lists.size() ; step *= 2) {
+            for (int i = 0 ; i < lists.size() ; i += 2 * step) {
+                if (i + step < lists.size())    lists[i] = merge(lists[i] , lists[i + step]) ;
             }
         }
-        return ans->next ;
+        return lists[0] ;
+    }
+private: 
+    ListNode* merge(ListNode *l1 , ListNode *l2) {
+        ListNode *head = new ListNode() ;
+        ListNode *curr = head ;
+        while (l1 && l2) {
+            if (l1->val <= l2->val) {
+                curr->next = l1 ; 
+                l1 = l1->next ;
+            } else {
+                curr->next = l2 ;
+                l2 = l2->next ;
+            }
+            curr = curr->next ; 
+        }
+        while (l1) {
+            curr->next = l1 ; 
+            l1 = l1->next ; 
+            curr = curr->next ; 
+        }
+        while (l2) {
+            curr->next = l2 ; 
+            l2 = l2->next ; 
+            curr = curr->next ; 
+        }
+        return head->next ;
     }
 };
