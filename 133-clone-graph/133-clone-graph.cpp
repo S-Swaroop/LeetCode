@@ -23,22 +23,14 @@ class Solution {
 public:
     Node* cloneGraph(Node* node) {
         if (!node)  return node ;
-        unordered_map<Node* , Node*> done ;
-        Node* clone = new Node(node->val , {}) ;
-        done[node] = clone ;
-        queue<Node*> q ; 
-        q.push(node) ;
-        while (!q.empty()) {
-            Node *curr_node = q.front() ; 
-            q.pop() ;
-            for (Node* neighbor : curr_node->neighbors) {
-                if (done.find(neighbor) == done.end()) {
-                    done[neighbor] = new Node(neighbor->val , {}) ;
-                    q.push(neighbor) ;
-                }
-                done[curr_node]->neighbors.push_back(done[neighbor]) ;
+        if (copy.find(node) == copy.end()) {
+            copy[node] = new Node(node->val , {}) ;
+            for (Node *curr : node->neighbors) {
+                copy[node]->neighbors.push_back(cloneGraph(curr)) ;
             }
         }
-        return clone ;
+        return copy[node] ;
     }
+private: 
+    unordered_map<Node* , Node*> copy ;
 };
