@@ -15,16 +15,17 @@ public:
                 dp[i][j] = (dp[i + 1][j - 1] && s[i] == s[j]) ;
             }
         }
-        string ans = "" ; 
+        int strt = 0 , len = 0 ; 
         for (int i = 0 ; i < n ; i++) {
             for (int j = i ; j < n ; j++) {
                 if (dp[i][j]) {
-                    if (ans.length() < (j - i + 1)) {
-                        ans = s.substr(i , j - i + 1) ;
+                    if (len < (j - i + 1)) {
+                        strt = i ; 
+                        len = j - i + 1 ;
                     }
                 }
             }
         }
-        return ans ; 
+        return s.substr(strt , len) ; 
     }
 };
