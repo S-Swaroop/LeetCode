@@ -5,34 +5,12 @@ public:
         string dir = "" ; 
         for (char c : path) {
             if (c == '/') {
-                if (!dir.empty()) {
-                    if (dir == "..") {
-                        if (!s.empty()) {
-                            s.pop_back() ;
-                        }
-                    } else if (dir == ".") {
-                        
-                    } else {
-                        s.push_back(dir) ;
-                    }
-                    dir.clear() ;
-                }
+                insert(dir , s) ;
             } else {
                 dir += c ; 
             }
         }
-        if (!dir.empty()) {
-            if (dir == "..") {
-                if (!s.empty()) {
-                    s.pop_back() ;
-                }
-            } else if (dir == ".") {
-
-            } else {
-                s.push_back(dir) ;
-            }
-            dir.clear() ;
-        }
+        insert(dir , s) ;
         string ans = "/" ;
         for (string &i : s) {
             ans += i + "/" ;
@@ -40,5 +18,20 @@ public:
         if (ans.size() > 1)
             ans.pop_back() ;
         return ans ; 
+    }
+private: 
+    void insert (string &dir , vector<string> &path) {
+        if (!dir.empty()) {
+            if (dir == "..") {
+                if (!path.empty()) {
+                    path.pop_back() ;
+                }
+            } else if (dir == ".") {
+
+            } else {
+                path.push_back(dir) ;
+            }
+            dir.clear() ;
+        }
     }
 };
