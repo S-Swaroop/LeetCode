@@ -11,13 +11,7 @@ public:
             }
         }
         insert(dir , s) ;
-        string ans = "/" ;
-        for (string &i : s) {
-            ans += i + "/" ;
-        }
-        if (ans.size() > 1)
-            ans.pop_back() ;
-        return ans ; 
+        return construct(s) ;
     }
 private: 
     void insert (string &dir , vector<string> &path) {
@@ -33,5 +27,14 @@ private:
             }
             dir.clear() ;
         }
+    }
+    string construct (vector<string> &path) {
+        string ans = "/" ; 
+        for (string &i : path) {
+            ans += i + "/" ;
+        }
+        if (ans.size() > 1)
+            ans.pop_back() ;
+        return ans ; 
     }
 };
