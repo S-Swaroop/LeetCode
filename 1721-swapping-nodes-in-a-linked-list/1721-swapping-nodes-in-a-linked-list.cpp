@@ -11,15 +11,13 @@
 class Solution {
 public:
     ListNode* swapNodes(ListNode* head, int k) {
-        ListNode *cur = head , *a = nullptr , *b = nullptr ;
-        while (cur) {   
-            k-- ;
+        ListNode *a = nullptr , *b = nullptr ;
+        for (ListNode *cur = head ; cur != NULL ; cur = cur->next) {   
             a = a == nullptr ? nullptr : a->next ;
-            if (k == 0) {
+            if (--k == 0) {
                 b = cur ;
                 a = head ;
             }
-            cur = cur->next ;
         }
         swap(a->val , b->val) ;
         return head ;
