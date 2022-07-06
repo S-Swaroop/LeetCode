@@ -1,1 +1,2 @@
-​
+3 * (row / 3) + i / 3 = i / 3 steps ahead starting of the small box in which this cell (row , i)  is
+3 * (col / 3) + i % 3 = i % 3 steps ahead starting of the small box in which this cell (row , i)  is
