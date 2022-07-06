@@ -1,1 +1,2 @@
-C
+C++ doesn't have any data structure which supports O(1) look up like mentioned in discuss without creating an infinite-loop(if we use an unordered_map)
+- using an unordered_map in C++, we either check by value, in that case a new key is inserted every time that key is absent , or we check by using find, which is O(nlogn)
