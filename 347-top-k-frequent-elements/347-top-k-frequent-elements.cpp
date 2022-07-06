@@ -5,12 +5,15 @@ public:
         for (int &i : nums) {
             freq[i]++ ;
         }
-        priority_queue<pair<int , int>> q ; 
+        priority_queue<pair<int , int> , vector<pair<int , int>> , greater<pair<int , int>>> q ; 
         for (auto &i : freq) {
             q.push({i.second , i.first}) ;
+            if(q.size() > k) {
+                q.pop() ;
+            }
         }
         vector<int> ans ;
-        while (k--) {
+        while (!q.empty()) {
             ans.push_back(q.top().second) ; 
             q.pop() ;
         }
