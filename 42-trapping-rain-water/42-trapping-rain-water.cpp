@@ -1,18 +1,19 @@
 class Solution {
 public:
     int trap(vector<int>& height) {
-        int n = height.size() ; 
-        vector<int> left(n , 0) , right(n , 0) ; 
-        for (int i = 0 ; i < n ; i++) {
-            left[i] = i == 0 ? height[i] : max(left[i - 1] , height[i]) ; 
+        int area = 0 ;
+        stack<int> st ; 
+        for (int i = 0 , n = height.size() ; i < n ; i++) {
+            while (!st.empty() && height[st.top()] < height[i]) {
+                int j = st.top() ; 
+                st.pop() ; 
+                if (st.empty()) {
+                    break ;
+                }
+                area += (min(height[i] , height[st.top()]) - height[j]) * (i - st.top() - 1) ;
+            }
+            st.push(i) ; 
         }
-        for (int i = n - 1 ; i >= 0 ; i--) {
-            right[i] = i == n - 1 ? height[i] : max(right[i + 1] , height[i]) ; 
-        }
-        int ans = 0 ; 
-        for (int i = 0 ; i < n ; i++) {
-            ans += min(left[i] , right[i]) - height[i] ; 
-        }
-        return ans ;
+        return area ;
     }
 };
