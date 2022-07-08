@@ -1,10 +1,7 @@
 class Solution {
 public:
     int search(vector<int>& nums, int target) {
-        int n = nums.size() ;
-        int rotPoint = getRotationPoint(nums) ;
-        cout << rotPoint << endl ;
-        return binarySearch(nums , target , rotPoint) ; 
+        return binarySearch(nums , target , getRotationPoint(nums)) ; 
     }
 private: 
     int getRotationPoint (vector<int> &nums) {
