@@ -1,25 +1,23 @@
 class Solution {
 public:
     int findDuplicate(vector<int>& nums) {
-        int n = nums.size() - 1 ; 
-        auto count = [&] (int num) {
-            int res = 0 ;
+        int n = nums.size() ;
+        auto count = [&] (int x) -> bool {
+            int res = 0 ; 
             for (int &i : nums) {
-                if (i <= num) {
-                    res++ ;
-                }
+                res += i <= x ; 
             }
-            return res ;
-        } ;
-        int l = 1 , r = n ; 
-        while (r - l > 1) {
-            int m = l + (r - l) / 2 ;
-            if (count(m) > m) {
-                r = m ; 
+            return res > x ; 
+        };
+        int low = 0 , high = n + 1 ; 
+        while (high - low > 1) {
+            int mid = low + ((high - low) >> 1) ;
+            if (count (mid)) {
+                high = mid ; 
             } else {
-                l = m ;
+                low = mid ;
             }
         }
-        return count(l) > l ? l : r ; 
+        return high ;
     }
 };
