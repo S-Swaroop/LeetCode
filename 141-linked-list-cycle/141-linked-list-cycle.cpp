@@ -13,7 +13,7 @@ public:
             return false ;
         }
         ListNode *slow = head , *fast = head ;    
-        while (fast->next && fast->next->next && slow) {
+        while (fast && fast->next && slow) {
             slow = slow->next ; 
             fast = fast->next->next ; 
             if (slow == fast) {
