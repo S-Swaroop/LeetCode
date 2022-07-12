@@ -17,7 +17,7 @@ public:
             fs[s[i] - 'a']++ ; 
             fs[s[i - m] - 'a']-- ;
             if (fs == fp){
-                ans.emplace_back(i - m + 1) ; 
+                ans.push_back(i - m + 1) ; 
             }
         }
         return ans ;
