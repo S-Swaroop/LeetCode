@@ -7,8 +7,6 @@ public:
                 len++ ; 
             } else if (len > 0) {
                 break ;
-            } else {
-                continue ;
             }
         }
         return len ;
