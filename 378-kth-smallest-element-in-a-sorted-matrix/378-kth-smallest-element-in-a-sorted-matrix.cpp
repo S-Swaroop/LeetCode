@@ -1,15 +1,15 @@
 class Solution {
 public:
     int kthSmallest(vector<vector<int>>& matrix, int k) {
-        priority_queue<int> q ; 
-        for (vector<int> &i : matrix) {
-            for (int &j : i) {
-                q.push(j) ; 
-                if (q.size() > k) {
-                    q.pop() ; 
+        priority_queue<int> pq ; 
+        for (auto &a : matrix) {
+            for (int &i : a) {
+                pq.push(i) ; 
+                if (pq.size() > k) {
+                    pq.pop() ; 
                 }
             }
         }
-        return q.top() ;
+        return pq.top() ;
     }
 };
