@@ -1,34 +1,33 @@
 class Solution {
 public:
     int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
-        unordered_map <string , bool> present ;
-        unordered_map <string , int> dist ;
+        unordered_map<string , bool> present ; 
+        unordered_map<string , int> dist ;
         for (string &i : wordList) {
-            present[i] = 1 ;
+            dist[i] = 0 ;
+            present[i] = true ;
         }
-        if (!present[endWord]) {
-            return 0 ;
-        }
-        dist[beginWord] = 1 ;
-        queue <string> q ;
+        queue<string> q ; 
         q.push(beginWord) ;
+        dist[beginWord] = 1 ;
         while (!q.empty()) {
-            string node = q.front() ;
-            q.pop() ;
-            int d = dist[node] ;
-            if (node == endWord) {
+            string word = q.front() ;
+            q.pop() ; 
+            int d = dist[word] ;
+            if (word == endWord) {
                 return d ;
-            }
-            for (char &c : node) {
-                for (char x = 'a' ; x <= 'z' ; x++) {
-                    if (x != c) {
-                        swap(x , c) ;
-                        if (present[node]) {
-                            present[node] = 0 ;
-                            dist[node] = d + 1 ;
-                            q.push(node) ;
+            } else {
+                for (char &c : word) {
+                    for (char i = 'a' ; i <= 'z' ; i++) {
+                        if (i != c) {
+                            swap(i , c) ;
+                            if (present[word]) {
+                                present[word] = false ;
+                                q.push(word) ;
+                                dist[word] = d + 1 ;
+                            }
+                            swap(i , c) ;
                         }
-                        swap(x , c) ;
                     }
                 }
             }
@@ -36,8 +35,3 @@ public:
         return 0 ;
     }
 };
-
-
-
-//d b c d 
-
