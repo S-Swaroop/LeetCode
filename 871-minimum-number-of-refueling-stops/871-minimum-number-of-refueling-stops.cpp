@@ -1,21 +1,22 @@
 class Solution {
 public:
     int minRefuelStops(int target, int startFuel, vector<vector<int>>& stations) {
-        int n = stations.size() ; 
-        vector<long long int> dp (n + 1) ;
-        dp[0] = startFuel ; 
-        for (int i = 0 ; i < n ; i++) {
-            for (int j = i ; j >= 0 ; j--) {
-                if (dp[j] >= stations[i][0]) {
-                    dp[j + 1] = max(dp[j + 1] , dp[j] + stations[i][1]) ;
-                }
+        stations.push_back({target , -1}) ;
+        priority_queue<int> pq ;
+        int current_fuel = startFuel , last_station = 0 , refuels = 0 ;
+        for (int i = 0 , n = stations.size() ; i < n ; i++) {
+            current_fuel -= (stations[i][0] - last_station) ;
+            while (!pq.empty() && current_fuel < 0) {
+                current_fuel += pq.top() ;
+                refuels++ ;
+                pq.pop() ;
             }
-        }
-        for (int i = 0 ; i <= n ; i++) {
-            if (dp[i] >= target) {
-                return i ;
+            if (current_fuel < 0) {
+                return -1 ;
             }
+            last_station = stations[i][0] ;
+            pq.push(stations[i][1]) ;
         }
-        return -1 ;
+        return refuels ;
     }
 };
