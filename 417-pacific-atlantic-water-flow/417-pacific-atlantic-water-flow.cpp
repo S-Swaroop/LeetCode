@@ -1,43 +1,42 @@
 class Solution {
 public:
-
     vector<vector<int>> pacificAtlantic(vector<vector<int>>& heights) {
-        int n = heights.size() , m = heights[0].size() ; 
-        int dx[4] = {-1 , 0 , 1 , 0} ;
-        int dy[4] = {0 , -1 , 0 , 1} ;
-        vector<vector<bool>> atlantic(n , vector<bool>(m , 0)) , pacific(n , vector<bool>(m , 0)) ;
-        vector<vector<int>> ans ; 
-        
-        auto isValid = [&](int x , int y , int from , vector<vector<bool>> &vis){
-            if(x < 0 || x >= n || y < 0 || y >= m || from > heights[x][y] || vis[x][y])  return false ; 
-            else    return true ;
-        };
-        
-        function<void(int x , int y , vector<vector<bool>> &vis)> dfs = [&](int x , int y , vector<vector<bool>> &vis){
-            // cout << x << " " << y << endl ; 
-            vis[x][y] = 1 ;
-            for(int i = 0 ; i < 4 ; i++){
-                if(isValid(x + dx[i] , y + dy[i] , heights[x][y] , vis)){
-                    dfs(x + dx[i] , y + dy[i] , vis) ;
+        int n = heights.size() , m = heights[0].size() ;
+        vector<vector<int>> ans ;
+        vector<vector<char>> vis(n , vector<char> (m , '_')) ;
+        for (int i = 0 ; i < n ; i++) {
+            dfs ('P' , i , 0 , heights , vis , ans) ;
+        }
+        for (int i = 0 ; i < m ; i++) {
+            dfs ('P' , 0 , i , heights , vis , ans) ;
+        }
+        for (int i = 0 ; i < n ; i++) {
+            dfs ('A' , i , m - 1 , heights , vis , ans) ;
+        }
+        for (int i = 0 ; i < m ; i++) {
+            dfs ('A' , n - 1 , i , heights , vis , ans) ;
+        }
+        return ans ;
+    }
+private: 
+    int dx[4] = {-1 , 0 , 1 , 0} ;
+    int dy[4] = {0 , -1 , 0 , 1} ;
+    
+    bool isValid (int x , int y , vector<vector<int>> &heights) {
+        return (x >= 0 && y >= 0 && x < (int)heights.size() && y < (int)heights[0].size()) ;
+    }
+    
+    void dfs (char ocean , int x , int y , vector<vector<int>> &heights , vector<vector<char>> &vis , vector<vector<int>> &ans) {
+        if (vis[x][y] != ocean) { // not visited by this ocean
+            if (vis[x][y] != '_') {
+                ans.push_back({x , y}) ;
+            } 
+            vis[x][y] = ocean ; 
+            for (int i = 0 ; i < 4 ; i++) {
+                if (isValid(x + dx[i] , y + dy[i] , heights) && heights[x][y] <= heights[x + dx[i]][y + dy[i]]) {
+                    dfs (ocean , x + dx[i] , y + dy[i] , heights , vis , ans) ;
                 }
             }
-            if(atlantic[x][y] && pacific[x][y]) ans.push_back(vector<int>{x , y}) ;
-        };
-        
-        for(int i = 0 ; i < n ; i++){
-            if(!atlantic[i][m -1])  dfs(i , m - 1 , atlantic) ;
-            if(!pacific[i][0])  dfs(i , 0 , pacific) ;
-        }
-        for(int i = 0 ; i < m ; i++){
-            if(!atlantic[n - 1][i]) dfs(n - 1 , i , atlantic) ;
-            if(!pacific[0][i])  dfs(0 , i , pacific) ;
-        }
-        // for(int i = 0 ; i < n ; i++){
-        //     for(int j = 0 ; j < m ; j++){
-        //         if(atlantic[i][j] && pacific[i][j]) ans.push_back(vector<int>{i , j}) ;
-        //     }
-        // }
-        
-        return ans ; 
+        } 
     }
 };
