@@ -11,10 +11,8 @@
  */
 class Solution {
 public:
-    int goodNodes(TreeNode* root) {
-        int count = 0 , max_yet = INT_MIN ; 
-        dfs (root , max_yet , count) ;
-        return count ;
+    int goodNodes(TreeNode* root , int max_yet = INT_MIN) {
+        return (root ? (root->val >= max_yet) + goodNodes(root->right , max(root->val , max_yet)) + goodNodes(root->left , max(root->val , max_yet)) : 0) ;
     }
 private: 
     void dfs (TreeNode *root , int max_yet , int &count) {
