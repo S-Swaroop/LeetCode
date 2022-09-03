@@ -13,18 +13,12 @@ private:
             ans.push_back(number) ;
         } else {
             int last_digit = number % 10 ;
-            if (k == 0) {
-                number = (number * 10) + last_digit ;
-                generate(number , n - 1 , k , ans) ; 
-                number /= 10 ; 
-                return ;
-            }
             if (last_digit + k <= 9) {
                 number = (number * 10) + (last_digit + k) ;
                 generate(number , n - 1 , k , ans) ;
                 number /= 10 ;
             }
-            if (last_digit - k >= 0) {
+            if (k != 0 && last_digit - k >= 0) {
                 number = (number * 10) + (last_digit - k) ;
                 generate(number , n - 1 , k , ans) ;
                 number /= 10 ;
