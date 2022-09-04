@@ -14,17 +14,20 @@ public:
     vector<vector<int>> verticalTraversal(TreeNode* root) {
         dfs (root , 0 , 0) ;
         vector<vector<int>> ans ;
-        for (auto i : f) {
+        for (int x = -999 ; x <= 999 ; x++) {
+            if (f.find(x) == f.end()) {
+                continue ;
+            }
             vector<int> col ;
-            for (auto j : i.second) {
-                col.insert(col.end() , j.second.begin() , j.second.end()) ;
+            for (int y = 0 ; y <= 999 ; y++) {
+                col.insert(col.end() , f[x][y].begin() , f[x][y].end()) ;
             }
             ans.push_back(col) ;
         }
         return ans ;
     }
 private: 
-    map<int , map<int , multiset<int>>> f ; 
+    unordered_map<int , unordered_map<int , multiset<int>>> f ; 
     void dfs (TreeNode *root , int x , int y) {
         if (root) {
             f[x][y].insert(root->val) ;
