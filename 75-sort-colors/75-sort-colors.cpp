@@ -7,7 +7,7 @@ public:
                 swap(a[i] , a[pointer++]) ;
             }
         }
-        for (int i = 0 , n = a.size() ; i < n ; i++) {
+        for (int i = pointer , n = a.size() ; i < n ; i++) {
             if (a[i] == 1) {
                 swap(a[i] , a[pointer++]) ;
             }
