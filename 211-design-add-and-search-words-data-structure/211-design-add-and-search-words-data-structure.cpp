@@ -2,7 +2,7 @@ struct TrieNode {
     struct TrieNode* children[26] ;
     bool isEndOfWord ;
     TrieNode () {
-        memset(children , NULL , sizeof(TrieNode*) * 26) ;
+        memset(children , NULL , sizeof(children)) ;
         isEndOfWord = false ;
     };
 };
