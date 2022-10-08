@@ -1,52 +1,55 @@
-class TrieNode {
-    public : 
-        TrieNode* children[26] ; 
-        bool endsHere ; 
-    
-        TrieNode() {
-            endsHere = false ; 
-            for(int i = 0 ; i < 26 ; i++) {
-                children[i] = NULL ;
-            }
+struct TrieNode {
+    struct TrieNode* children[26] ;
+    bool isEndOfWord ;
+    TrieNode () {
+        for (int i = 0 ; i < 26 ; i++) {
+            children[i] = nullptr ;
         }
+        isEndOfWord = false ;
+    };
+    ~TrieNode() {
+        
+    };
 };
+
 class WordDictionary {
 public:
     WordDictionary() {
-        
+        root = new TrieNode() ;
     }
     
     void addWord(string word) {
-        TrieNode* node = root ; 
-        for(char i : word) {
-            if(!node->children[i - 'a'])    node->children[i - 'a'] = new TrieNode() ; 
+        TrieNode *node = root ;
+        for (char &i : word) {
+            if (!node->children[i - 'a']) {
+                node->children[i - 'a'] = new TrieNode() ;
+            }
             node = node->children[i - 'a'] ;
         }
-        node->endsHere = true ; 
+        node->isEndOfWord = true ;
     }
     
     bool search(string word) {
-        return find(word.c_str() , root) ; 
+        return find(0 , root , word) ;
     }
-private: 
-    TrieNode* root = new TrieNode() ; 
-    
-    bool find(const char* word, TrieNode *root) {
+private:
+    TrieNode *root ;
+    bool find (int _i , TrieNode *root , string &word) {
         TrieNode *node = root ; 
-        for(int i = 0 ; word[i] && node ; i++){
-            if(word[i] != '.') {
-                node = node->children[word[i] - 'a'] ;
-            } else {
-                TrieNode *temp = node ; 
-                for(int j = 0 ; j < 26 ; j++) {
-                    node = temp->children[j] ; 
-                    if(find(word + i + 1 , node)) {
-                        return true ; 
+        int n = word.length() ;
+        for (int i = _i ; i < n && node ; i++) {
+            if (word[i] == '.') {
+                for (int j = 0 ; j < 26 ; j++) {
+                    if (find(i + 1 , node->children[j] , word)) {
+                        return true ;
                     }
                 }
+                return false ;
+            } else {
+                node = node->children[word[i] - 'a'] ;
             }
         }
-        return node && node->endsHere ; 
+        return node && node->isEndOfWord ;
     }
 };
 
