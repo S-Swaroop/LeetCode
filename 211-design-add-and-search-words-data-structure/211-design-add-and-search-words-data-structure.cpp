@@ -29,7 +29,7 @@ public:
     }
 private:
     TrieNode *root ;
-    bool find (int _i , TrieNode *root , string &word) {
+    inline bool find (int _i , TrieNode *root , string &word) {
         TrieNode *node = root ; 
         int n = word.length() ;
         for (int i = _i ; i < n && node ; i++) {
