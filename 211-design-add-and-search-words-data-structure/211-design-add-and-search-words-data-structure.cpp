@@ -35,6 +35,7 @@ private:
         TrieNode *node = root ; 
         int n = word.length() ;
         for (int i = _i ; i < n && node ; i++) {
+            // if we encounter a '.' we try every possible character in place of it 
             if (word[i] == '.') {
                 for (int j = 0 ; j < 26 ; j++) {
                     if (find(i + 1 , node->children[j] , word)) {
