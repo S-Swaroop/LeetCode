@@ -1,5 +1,3 @@
-#pragma GCC optimize("O2++") 
-
 struct TrieNode {
     struct TrieNode* children[26] ;
     bool isEndOfWord ;
