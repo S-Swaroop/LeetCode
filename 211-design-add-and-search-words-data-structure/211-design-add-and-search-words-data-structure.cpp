@@ -2,13 +2,8 @@ struct TrieNode {
     struct TrieNode* children[26] ;
     bool isEndOfWord ;
     TrieNode () {
-        for (int i = 0 ; i < 26 ; i++) {
-            children[i] = nullptr ;
-        }
+        memset(children , NULL , sizeof(TrieNode*) * 26) ;
         isEndOfWord = false ;
-    };
-    ~TrieNode() {
-        
     };
 };
 
