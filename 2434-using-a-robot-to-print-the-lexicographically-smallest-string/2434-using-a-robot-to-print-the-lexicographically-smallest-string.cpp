@@ -20,10 +20,10 @@ public:
             }
         }
         // write all characters left with robot
-        while (!t.empty()) {
-            paper += t.back() ; 
-            t.pop_back() ;
-        }
+        // while (!t.empty()) {
+        //     paper += t.back() ; 
+        //     t.pop_back() ;
+        // }
         return paper ;
     }
 private:  
