@@ -5,9 +5,8 @@ public:
         for (char &i : s) {
             freq[i - 'a']++ ;
         }
-        int low = 0 ;
         // global min character
-        char _min = 'z' ;
+        char _min = 'a' ;
         string t = "" , paper = "" ;
         for (char &i : s) {
             // give it to robot
@@ -15,10 +14,9 @@ public:
             // decrease given character's frequency
             freq[i - 'a']-- ;  
             // move low to the smallest character in string s
-            while (low < 26 && freq[low] == 0) {
-                low++ ;
+            while (_min <= 'z' && freq[_min - 'a'] == 0) {
+                _min++ ;
             }
-            _min = 'a' + low ;
             // if robot has a character smaller than equal to _min then write it to paper
             while (!t.empty() && t.back() <= _min) { 
                 paper += t.back() ;
