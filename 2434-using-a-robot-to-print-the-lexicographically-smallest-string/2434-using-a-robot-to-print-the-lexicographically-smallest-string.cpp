@@ -6,6 +6,7 @@ public:
             freq[i - 'a']++ ;
         }
         int low = 0 ;
+        // global min character
         char _min = 'z' ;
         string t = "" , paper = "" ;
         for (char &i : s) {
@@ -13,7 +14,7 @@ public:
             t += i ; 
             // decrease given character's frequency
             freq[i - 'a']-- ;  
-            // retrieve smallest character present in string s
+            // move low to the smallest character in string s
             while (low < 26 && freq[low] == 0) {
                 low++ ;
             }
