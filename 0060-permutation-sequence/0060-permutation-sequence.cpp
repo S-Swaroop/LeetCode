@@ -1,12 +1,13 @@
 class Solution {
 public:
     string getPermutation(int n, int k) {
-        return next(n , k , digits.substr(0 , n)) ;
+        string left = digits.substr(0 , n) ;
+        return next(n , k , left) ;
     }
 private: 
     string digits = "123456789" ;
     int fact[10] = {1 , 1 , 2 , 6 , 24 , 120 , 720 , 5040 , 40320 , 362880} ;
-    string next (int n , int k , string left) {
+    string next (int n , int k , string &left) {
         if (n == 1) {
             return left ;
         } else {
