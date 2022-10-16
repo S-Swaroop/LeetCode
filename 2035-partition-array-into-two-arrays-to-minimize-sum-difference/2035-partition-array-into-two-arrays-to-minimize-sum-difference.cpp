@@ -33,10 +33,11 @@ private:
         int n = end - start + 1 ;
         int lim = 1 << n ;
         for (int i = 0 ; i < lim ; i++) {
-            int chosen = __builtin_popcount(i) ;
+            int chosen = 0 ;
             int sum = 0 ;
             for (int j = start ; j <= end ; j++) {
                 if ((1 << (j - start)) & i) {
+                    chosen++ ;
                     sum += nums[j] ;
                 }
             }
