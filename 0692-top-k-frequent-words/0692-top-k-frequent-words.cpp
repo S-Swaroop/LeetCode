@@ -2,21 +2,62 @@ class Solution {
 public:
     vector<string> topKFrequent(vector<string>& words, int k) {
         unordered_map<string , int> f ; 
-        for (string &i : words) {
-            f[i]++ ;
+        for (string &s : words) {
+            f[s]++ ;
         }
-        vector<string> ans ; 
-        for (auto &[word , _] : f) {
-            ans.push_back(word) ;
+        int n = f.size() ; 
+        vector<struct TrieNode*> fr(n + 1) ;
+        for (int i = 1 ; i <= n ; i++) {
+            fr[i] = new TrieNode() ;
         }
-        sort(ans.begin() , ans.end() , [&](string &a , string &b) {
-            if (f[a] == f[b]) {
-                return a < b ;
-            } else {
-                return f[a] > f[b] ;
-            }
-        }) ;
-        ans.resize(k) ; 
+        for (auto &[word , freq] : f) {
+            insert(fr[freq] , word) ;
+        }
+        vector<string> ans ;
+        for (int i = n ; i >= 1 ; i--) {
+            getWord(fr[i] , ans , k) ;
+        }
         return ans ;
+    }
+private:
+    struct TrieNode {
+        struct TrieNode* children[26] ;
+        string word ; 
+        bool isEndOfWord ;
+        TrieNode () {
+            word = "" ; 
+            isEndOfWord = false ;
+            for (int i = 0 ; i < 26 ; i++)  children[i] = nullptr ;
+        }
+    };
+    
+    void insert (struct TrieNode *root , string word) {
+        struct TrieNode *curr = root ; 
+        for (char &i : word) {
+            if (!curr->children[i - 'a']) {
+                curr->children[i - 'a'] = new TrieNode() ;
+            }
+            curr = curr->children[i - 'a'] ;
+        }
+        curr->isEndOfWord = true ;
+        curr->word = word ;
+    }
+    
+    void getWord (struct TrieNode *root , vector<string> &res , int k) {
+        if (!root) {
+            return ;
+        } else if ((int)res.size() == k) {
+            return ;
+        } else {
+            if (root->isEndOfWord) {
+                res.push_back(root->word) ;
+            }
+            struct TrieNode *curr = root ; 
+            for (int i = 0 ; i < 26 ; i++) {
+                if (curr->children[i]) {
+                    getWord(curr->children[i] , res , k) ;
+                }
+            }
+        }
     }
 };
