@@ -64,7 +64,7 @@ private:
         curr->isEndOfWord = true ;
         curr->word = word ;
     }
-    
+    // just walking through a particular Trie
     void getWord (struct TrieNode *root , vector<string> &res , int k) {
         if (!root) {
             return ;
