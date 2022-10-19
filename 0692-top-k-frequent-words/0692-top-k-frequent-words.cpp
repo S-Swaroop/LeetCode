@@ -1,23 +1,42 @@
 class Solution {
 public:
     vector<string> topKFrequent(vector<string>& words, int k) {
-        unordered_map<string , int> f ; 
+        unordered_map<string , int> freq ; 
+        for (string &i : words) {
+            freq[i]++ ;
+        }
+        int n = freq.size() ; 
+        vector<set<string>> f(n + 1) ; 
         for (string &s : words) {
-            f[s]++ ;
-        }
-        int n = f.size() ; 
-        vector<struct TrieNode*> fr(n + 1) ;
-        for (int i = 1 ; i <= n ; i++) {
-            fr[i] = new TrieNode() ;
-        }
-        for (auto &[word , freq] : f) {
-            insert(fr[freq] , word) ;
+            f[freq[s]].insert(s) ;
         }
         vector<string> ans ;
-        for (int i = n ; i >= 1 ; i--) {
-            getWord(fr[i] , ans , k) ;
+        for (int i = n ; i >= 1 && (int)ans.size() < k ; i--) {
+            for (string j : f[i]) {
+                ans.push_back(j) ; 
+                if ((int)ans.size() == k) {
+                    break ;
+                }
+            }
         }
-        return ans ;
+        return ans ; 
+        // unordered_map<string , int> f ; 
+        // for (string &s : words) {
+        //     f[s]++ ;
+        // }
+        // int n = f.size() ; 
+        // vector<struct TrieNode*> fr(n + 1) ;
+        // for (int i = 1 ; i <= n ; i++) {
+        //     fr[i] = new TrieNode() ;
+        // }
+        // for (auto &[word , freq] : f) {
+        //     insert(fr[freq] , word) ;
+        // }
+        // vector<string> ans ;
+        // for (int i = n ; i >= 1 ; i--) {
+        //     getWord(fr[i] , ans , k) ;
+        // }
+        // return ans ;
     }
 private:
     struct TrieNode {
