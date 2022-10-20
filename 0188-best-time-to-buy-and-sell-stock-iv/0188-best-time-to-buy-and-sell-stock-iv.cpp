@@ -9,7 +9,7 @@ public:
         }
         for (int i = 1 ; i <= n ; i++) {
             dp[i][0][0] = 0 ;
-            for (int j = k ; j >= 1 ; j--) {
+            for (int j = 1 ; j <= k ; j++) {
                 dp[i][j][0] = max(dp[i - 1][j][0] , dp[i - 1][j][1] + prices[i - 1]) ;
                 dp[i][j][1] = max(dp[i - 1][j][1] , dp[i - 1][j - 1][0] - prices[i - 1]) ;
             }
