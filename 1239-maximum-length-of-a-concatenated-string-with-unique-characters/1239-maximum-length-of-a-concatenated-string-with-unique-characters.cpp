@@ -47,6 +47,9 @@ public:
                         length++ ;
                     }
                 }
+                if (!unique) {
+                    break ;
+                }
             }
             if (unique) {
                 max_length = max(max_length , length) ;
